@@ -331,7 +331,8 @@ class ModelZoo:
         # Save model zoo to model_zoo.pt
         print(f'\n=====>SAVING {dict} in model_zoo.pt <=====\n')
 
-        torch.save( dict , self.model_zoo_path)
+        file = os.path.join(self.model_zoo_path, 'model_zoo.pt')
+        torch.save( dict , file)
 
         
         
@@ -347,8 +348,8 @@ class ModelZoo:
         
         self.trainpt_dict[dataset] = temp
         
-
-        torch.save(self.trainpt_dict, self.m_train_path)
+        fpath = os.path.join(self.m_train_path, 'm_train.pt') 
+        torch.save(self.trainpt_dict, fpath)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Model Zoo Construction')
