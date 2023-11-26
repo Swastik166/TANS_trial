@@ -63,9 +63,11 @@ $ python3 create_model_zoo.py --noise_path 'path/to/noise.pt' \
                               --patience 5 \
                               --epochs 50 \
                               --model_zoo_path 'path/to/model_zoo.pt' \
-                              --m_train_path 'path/to/meta_train.pt'
-                              --n_nets 10
-                              --gpu 1
+                              --m_train_path 'path/to/meta_train.pt' \
+                              --batch_size 32 \
+                              --dataset_path 'path/to/the/dataset'\
+                              --n_nets 10 \
+                              --gpu 1 \
                               --seed 777
  
 ```
