@@ -6,7 +6,7 @@ import torchvision.models as models
 from tqdm import tqdm
 import time
 import argparse
-from IE643.zoo_loader import *
+from zoo_loader import *
 
 
 
