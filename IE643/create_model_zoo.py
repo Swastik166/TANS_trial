@@ -361,11 +361,15 @@ if __name__ == '__main__':
     parser.add_argument('--model_zoo_path', type=str, default='model_zoo.pt', help='Path to model zoo file')
     parser.add_argument('--m_train_path', type=str, default='meta_train.pt', help='Path to meta train file')
     parser.add_argument('--n_nets', type=int, default= 10, help='number of networks to be generated per dataset')
-    parser.add_argument('--gpu', type=int, default=-1, help='GPU device index, use -1 for CPU')
+    parser.add_argument('--gpu', type=int, default=0, help='Use GPU or not, if 1 then use GPU, else use CPU')
     parser.add_argument('--seed', type=int, default=777, help='Random seed value')
     args = parser.parse_args()
 
-    device = torch.device("cuda:" + str(args.gpu) if torch.cuda.is_available() and args.gpu != -1 else "cpu")
+    # Determine device
+    if args.gpu == 1 and torch.cuda.is_available():
+        device = torch.device("cuda")
+    else:
+        device = torch.device("cpu")
 
     noise_path = args.noise_path
     learn = args.learn
