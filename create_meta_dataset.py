@@ -58,6 +58,7 @@ def process_dataset(dataset_path, save_path, device):
     # Process training data
     x_train = []
     y_train = []
+    print('=====> Generating x_train and y_train <===== /n')
     for class_folder in os.listdir(tr_path):
         class_path = os.path.join(tr_path, class_folder)
         label = int(class_folder)  # Assuming folder names are numeric labels
@@ -74,6 +75,7 @@ def process_dataset(dataset_path, save_path, device):
     # Process testing data
     x_test = []
     y_test = []
+    print('=====> Generating x_test and y_test <===== /n')
     for class_folder in os.listdir(te_path):
         class_path = os.path.join(te_path, class_folder)
         label = int(class_folder)  # Assuming folder names are numeric labels
@@ -114,7 +116,7 @@ def process_dataset(dataset_path, save_path, device):
     # Save dictionary as .pt file in the specified saving path
     file_path = os.path.join(save_path, f"{dataset_name}.pt")
     torch.save(dataset_dict, file_path)
-    print(f"File '{file_path}' saved successfully.")
+    print(f"File {dataset_name}.pt  saved successfully.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process datasets and create .pt files')
@@ -131,14 +133,18 @@ if __name__ == "__main__":
         device = torch.device(f'cuda:{args.gpu}')
     else:
         device = torch.device('cpu')
-
+    
     if not os.path.isdir(dataset_path):
         print("Invalid path to datasets.")
-    elif not os.path.exists(save_path):
-        print("Invalid saving path.")
     else:
+        # Create the save_path directory if it doesn't exist
+        os.makedirs(save_path, exist_ok=True)
+    
         datasets = os.listdir(dataset_path)
         for dataset in datasets:
+            print(f'\n=====>PROCESSING {dataset}<=====')
             dataset_folder = os.path.join(dataset_path, dataset)
             if os.path.isdir(dataset_folder):
                 process_dataset(dataset_folder, save_path, device)
+            else:
+                print(f'{dataset} does not exist')
