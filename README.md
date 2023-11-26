@@ -54,6 +54,22 @@ After download, specify their location on following arguments:
 - `model-zoo`: path where 1 should be located. Please give full path to the file. i.e. path/to/p_mod_zoo.pt
 - `model-zoo-raw`: path where 2 should be placed and unzipped (required for meta-test experiments)
 
+## Creating the Model Zoo
+The Training datasets list consists of 10 datasets and 10 networks per datasets are generated for a total of 100 dataset-network pairs
+
+``` bash
+$ python3 create_model_zoo.py --noise_path 'path/to/noise.pt' \
+                              --learn 0.01 \
+                              --patience 5 \
+                              --epochs 50 \
+                              --model_zoo_path 'path/to/model_zoo.pt' \
+                              --m_train_path 'path/to/meta_train.pt'
+                              --n_nets 10
+                              --gpu 1
+                              --seed 777
+ 
+```
+
 
 ## Learning the Cross Modal Retrieval Space
 
