@@ -31,7 +31,7 @@ class ZooDatasets(Dataset):
                 'intel-image-classification_puneet6060_0_6',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
         ]'''
-        self.dataset_list = ['e4040fall2019-assignment-2-task-5_0_5','lego-brick-images_joosthazelzet_0_16']
+        self.dataset_list = ['corales_0_14','lego-brick-images_joosthazelzet_0_16']
         
         self.curr_dataset = self.dataset_list[0]
         self.load_data()
