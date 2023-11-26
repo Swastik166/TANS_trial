@@ -30,14 +30,14 @@ class ModelZoo:
         random.seed(self.seed)
 
         # Check if model_zoo file exists, load if yes
-        if os.path.exists(self.model_zoo_path):
+        if os.path.isfile(self.model_zoo_path):
             self.load_model_zoo()
         else:
             self.zoo = {'dataset': [], 'topol': [], 'f_emb': [], 'acc': [], 'n_params': []}
 
 
         # Check if m_train file exists, load if yes
-        if os.path.exists(self.m_train_path):
+        if os.path.isfile(self.m_train_path):
             self.load_m_train()
         else:
             self.trainpt_dict = {}
