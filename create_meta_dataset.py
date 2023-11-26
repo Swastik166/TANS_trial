@@ -26,12 +26,11 @@ def get_query(queries):
 
     list_embeddings = [item for sublist in outputs for item in sublist]
 
-    query_train = []
-    for a in list_embeddings:
-        a = torch.tensor(a)
-        query_train.append(a)
+    query_train = list_embeddings
+    query_train = torch.tensor(query_train)
 
-    print(f'query_shape_train: {len(query_train)}, each tensor:{query_train[0].shape}')
+
+    print(f'query_shape_train: {len(query_train)}, each query:{len(query_train[0])}')
 
     del outputs
     del list_embeddings
@@ -56,12 +55,19 @@ def process_dataset(dataset_path, save_path, device):
         print("\n Using CPU for computations. \n")
 
     # Process training data
+    label_map = {}  # Dictionary to map string labels to integers
+    label_counter = 0
+
+    # Process training data
     x_train = []
     y_train = []
-    print("\n =====> Generating x_train and y_train <===== \n")
     for class_folder in os.listdir(tr_path):
         class_path = os.path.join(tr_path, class_folder)
-        label = int(class_folder)  # Assuming folder names are numeric labels
+        label = class_folder  # Assuming folder names are class labels
+        if label not in label_map:  # If label not mapped yet, assign an integer
+            label_map[label] = label_counter
+            label_counter += 1
+        label = label_map[label]  # Assign the integer value
         for img_file in os.listdir(class_path):
             img_path = os.path.join(class_path, img_file)
             img = Image.open(img_path)
@@ -75,10 +81,13 @@ def process_dataset(dataset_path, save_path, device):
     # Process testing data
     x_test = []
     y_test = []
-    print("\n =====> Generating x_test and y_test <===== \n")
     for class_folder in os.listdir(te_path):
         class_path = os.path.join(te_path, class_folder)
-        label = int(class_folder)  # Assuming folder names are numeric labels
+        label = class_folder  # Assuming folder names are class labels
+        if label not in label_map:  # If label not mapped yet, assign an integer
+            label_map[label] = label_counter
+            label_counter += 1
+        label = label_map[label]  # Assign the integer value
         for img_file in os.listdir(class_path):
             img_path = os.path.join(class_path, img_file)
             img = Image.open(img_path)
