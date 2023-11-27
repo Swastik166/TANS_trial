@@ -127,8 +127,9 @@ class ModelZoo:
             print(f'x_query:{len(x_query_train)}, x_query-test :{len(x_query_test)}')
             clss = self.tr_dataset.get_clss()
             self.save_trainpt(query_dataset, clss, nclass, x_query_test, x_query_train)
-                
         self.save_zoo( zoo = self.zoo)
+                
+        
         
                 
                 
