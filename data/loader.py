@@ -36,14 +36,13 @@ class MetaTestDataset(Dataset):
     def __init__(self, args, mode='train'):
         self.args = args
         self.mode = mode
-        self.dataset_list = [
-                'alien_vs_predator',
-                'colorectal_histology',
-                'covid19_radiography',
-                'dessert',
-                'honeybee_pollen',
-                'real_or_drawing',
-                'speed_limit_signs'
+        self.dataset_list = ['alien-vs-predator-images_pmigdal_0_2',
+                             'colorectal-histology-mnist_kmader_0_8',
+                             'covid19-radiography-database_tawsifurrahman_0_3',
+                             'drr-sign_0_4',
+                             'honey-bee-pollen_ivanfel_0_2',
+                             'ml2020spring-hw12_0_10',
+                             'recognizance1_0_5'
         ]
         self.data = torch_load(os.path.join(self.args.data_path, f'meta_test_{self.dataset_list[0]}.pt'))
         self.curr_dataset = self.dataset_list[0]
