@@ -202,6 +202,9 @@ class ModelZoo:
         counter = 0
         best_val_loss = 1000000
         val_acc = []
+        train_acc = []
+
+        
         
         
         for ep in range(epochs):
@@ -209,6 +212,8 @@ class ModelZoo:
             ep_loss_tr = 0.0
             ep_loss_val = 0.0
             ep_tr_time = 0
+            total_tr = 0
+            correct_tr = 0
             st = time.time()
             
             
@@ -219,6 +224,10 @@ class ModelZoo:
                 x,y = batch
                 output = model(x.to(self.device))
                 loss = lss(output, y.to(self.device))
+                pred = torch.argmax(output, dim = 1)
+                total_tr += y.size(0)
+                correct_tr += (pred == y.to(self.device)).sum().item()
+
                 loss.backward()
                 optim.step()
                 scheduler.step()
@@ -228,36 +237,41 @@ class ModelZoo:
                 ep_loss_tr += tr_loss * x.size(0)
                 
             ep_loss_tr = ep_loss_tr/len(train_loader)
+            acc_tr = (100*correct_tr)/total_tr
+            train_acc.append(acc_tr)
+
 
                         
             model.eval()
             total_val = 0
             correct_val = 0
+
                         
                         
             for v_id, (x,y) in tqdm(enumerate(val_loader)):
                 outputs = model(x.to(self.device))
                 loss_v = lss(outputs, y.to(self.device))
+
                        
                 val_loss = loss_v.item()
                 
                 ep_loss_val += val_loss * x.size(0)
                         
-                pred = torch.argmax(outputs, dim = 1)
+                pred_v = torch.argmax(outputs, dim = 1)
                 total_val += y.size(0)
-                correct_val += (pred == y.to(self.device)).sum().item() 
+                correct_val += (pred_v == y.to(self.device)).sum().item() 
                         
             acc = (100*correct_val)/total_val
             val_acc.append(acc)
             ep_loss_val = ep_loss_val/len(val_loader)
             dura = time.time() -st 
             
-            print('\nEpoch: {}/{}, Train Loss: {:.8f} , Val Loss: {:.8f}, Val Accuracy: {:.8f}, Epoch Time: {:.8f}'.format(ep + 1, epochs, ep_loss_tr, ep_loss_val, acc, dura))
+            print('\nEpoch: {}/{}, Train Loss: {:.8f} , Val Loss: {:.8f}, Train Accuracy:{:.8f},  Val Accuracy: {:.8f}, Epoch Time: {:.8f}'.format(ep + 1, epochs, ep_loss_tr, ep_loss_val, acc_tr ,acc, dura))
             
             
     
             if ep_loss_val < best_val_loss:
-                best_val_loss = ep_loss_tr
+                best_val_loss = ep_loss_val
                 counter = 0
                 
             else:
@@ -268,8 +282,19 @@ class ModelZoo:
                 break
                
             #print(f'ep : {ep}, loss:{ep_loss_tr}, val_loss:{ep_loss_val}, acc:{acc}, time:{dura}')
-                
-        return val_acc[-1]
+        ##after the training is done, calculating the test accuracy
+        model.eval()
+        total_test = 0
+        correct_test = 0
+        for t_id, (x,y) in tqdm(enumerate(test_loader)):
+            outputs = model(x.to(self.device))
+            pred_t = torch.argmax(outputs, dim = 1)
+            total_test += y.size(0)
+            correct_test += (pred_t == y.to(self.device)).sum().item()
+        acc_test = (100*correct_test)/total_test
+        print(f'Test Accuracy: {acc_test}')
+
+        return acc_test
             
             
                         
