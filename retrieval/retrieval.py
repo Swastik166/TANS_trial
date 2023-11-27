@@ -214,7 +214,7 @@ class Retrieval:
 
     def load_encoders_for_meta_test(self):
         print('==> loading encoders ... ')
-        _loaded = torch_load(os.path.join(self.args.load_path, 'checkpoints', 'saved_model_max_recall.pt'))
+        _loaded = torch_load(os.path.join(self.args.load_path, 'retrieval', 'saved_model_max_recall.pt'))
         self.enc_q = QueryEncoder(self.args).to(self.device).eval()
         self.enc_q.load_state_dict(_loaded['enc_q'])
         self.predictor = PerformancePredictor(self.args).to(self.device).eval()
