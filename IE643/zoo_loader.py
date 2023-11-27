@@ -26,7 +26,6 @@ class ZooDatasets(Dataset):
                 'corales_0_14',
                 'computed-tomography-ct-images_vbookshelf_0_2',
                 'four-shapes_smeschke_0_4',
-                'fruit-recognition_chrisfilo_0_15',
                 'lego-brick-images_joosthazelzet_0_16',
                 'intel-image-classification_puneet6060_0_6',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
