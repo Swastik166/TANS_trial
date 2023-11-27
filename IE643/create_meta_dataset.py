@@ -13,7 +13,7 @@ def get_query(queries):
 
     def copy_embeddings(m, i, o):
         """Copy embeddings from the penultimate layer."""
-        o = o[:, :, 0, 0].detach().numpy().tolist()
+        o = o[:, :, 0, 0].detach().cpu().numpy().tolist()
         outputs.append(o)
 
     outputs = []
