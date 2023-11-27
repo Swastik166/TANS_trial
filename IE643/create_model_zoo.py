@@ -104,7 +104,7 @@ class ModelZoo:
                 optim = torch.optim.SGD(net.parameters(), lr=learn, momentum=0.9, weight_decay=4e-5)
                 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optim , float(epochs))
                 
-                acc = self.train( net, optim, scheduler, lss, query_dataset, tr_loader, val_loader, tr_loader, nclass, topol, learn)  
+                acc = self.train( net, optim, scheduler, lss, query_dataset, tr_loader, val_loader,  nclass, topol, learn)  
 
                 # Calculating number of parameters
                 n_params = self.n_param(net)
@@ -194,7 +194,7 @@ class ModelZoo:
     
     
 
-    def train(self, model, optim, scheduler, lss, dataset, train_loader, val_loader, test_loader, nclss, topol, learn):
+    def train(self, model, optim, scheduler, lss, dataset, train_loader, val_loader,  nclss, topol, learn):
         print("\n=====> Training started <=====\n")
         #self.model = model
         print(f'Starting Training for:{dataset} with model topology:{topol}')
@@ -282,19 +282,9 @@ class ModelZoo:
                 break
                
             #print(f'ep : {ep}, loss:{ep_loss_tr}, val_loss:{ep_loss_val}, acc:{acc}, time:{dura}')
-        ##after the training is done, calculating the test accuracy
-        model.eval()
-        total_test = 0
-        correct_test = 0
-        for t_id, (x,y) in tqdm(enumerate(test_loader)):
-            outputs = model(x.to(self.device))
-            pred_t = torch.argmax(outputs, dim = 1)
-            total_test += y.size(0)
-            correct_test += (pred_t == y.to(self.device)).sum().item()
-        acc_test = (100*correct_test)/total_test
-        print(f'Test Accuracy: {acc_test}')
 
-        return acc_test
+
+        return acc
             
             
                         
