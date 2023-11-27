@@ -53,7 +53,7 @@ def set_path(args):
         os.makedirs(args.check_pt_path)        
 
     if args.mode == 'train':
-        args.retrieval_path = os.path.join(args.base_path, now, 'retrieval') 
+        args.retrieval_path = os.path.join(args.base_path,  'retrieval') 
         if not os.path.exists(args.retrieval_path):
             os.makedirs(args.retrieval_path)
 
