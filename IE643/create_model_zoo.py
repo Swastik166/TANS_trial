@@ -367,13 +367,12 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=777, help='Random seed value')
     args = parser.parse_args()
 
-    # Determine device
-    if args.gpu == 1 and torch.cuda.is_available():
-        device = torch.device("cuda")
-        print(f'Using GPU:{device}')
+    if args.gpu >= 0 and torch.cuda.is_available():
+        device = torch.device(f'cuda:{args.gpu}')
+        print(f" \n Using GPU: {torch.cuda.get_device_name(device.index)} \n")
     else:
-        device = torch.device("cpu")
-        print(f'Using CPU:{device}')
+        device = torch.device('cpu')
+        print("\n Using CPU for computations. \n")
 
     noise_path = args.noise_path
     learn = args.learn
