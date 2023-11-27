@@ -123,9 +123,9 @@ def process_dataset(dataset_path, save_path, device):
     }
 
     # Save dictionary as .pt file in the specified saving path
-    file_path = os.path.join(save_path, f"{dataset_name}.pt")
+    file_path = os.path.join(save_path, f"meta_test_{dataset_name}.pt")
     torch.save(dataset_dict, file_path)
-    print(f"\n File {dataset_name}.pt  saved successfully.\n")
+    print(f"\n File meta_test_{dataset_name}.pt  saved successfully.\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process datasets and create .pt files')
