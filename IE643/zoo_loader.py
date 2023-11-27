@@ -33,7 +33,7 @@ class ZooDatasets(Dataset):
         ]'''
 
         self.dataset_list = [
-                'fruit-recognition_chrisfilo_0_15',
+                'corales_0_14',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
         ]
         
@@ -121,4 +121,3 @@ class ZooDatasets(Dataset):
     
     def get_clss(self):
         return (self.classes)
-        
