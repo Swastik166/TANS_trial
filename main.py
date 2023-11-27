@@ -41,9 +41,9 @@ def set_gpu(args):
 
 def set_path(args):
 
-    now = datetime.now().strftime("%Y%m%d_%H%M")
-    args.log_path = os.path.join(args.base_path, now, 'logs')
-    args.check_pt_path = os.path.join(args.base_path, now, 'checkpoints') 
+    #now = datetime.now().strftime("%Y%m%d_%H%M")
+    args.log_path = os.path.join(args.base_path, 'logs')
+    args.check_pt_path = os.path.join(args.base_path, 'checkpoints') 
 
     if not os.path.exists(args.base_path):
         os.makedirs(args.base_path)
