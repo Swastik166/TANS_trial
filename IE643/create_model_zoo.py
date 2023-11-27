@@ -349,7 +349,7 @@ class ModelZoo:
         
         self.trainpt_dict[dataset] = temp
         
-        fpath = os.path.join(self.m_train_path, 'm_train.pt') 
+        fpath = os.path.join(self.m_train_path, 'meta_train.pt') 
         torch.save(self.trainpt_dict, fpath)
 
 if __name__ == '__main__':
