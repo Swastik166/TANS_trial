@@ -8,7 +8,7 @@ import numpy as np
 
 def get_query(queries):
     print("\n=====> GENERATING QUERIES <=====\n")
-    model = models.resnet18(pretrained=True)
+    model = models.resnet18(pretrained=True).to(device)
     layer = model._modules.get('avgpool')
 
     def copy_embeddings(m, i, o):
