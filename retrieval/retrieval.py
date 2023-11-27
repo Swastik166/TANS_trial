@@ -133,7 +133,7 @@ class Retrieval:
             fname = 'saved_model_max_recall.pt'
         else:
             fname = 'saved_model.pt'
-        torch_save(self.args.check_pt_path, fname, {
+        torch_save(self.args.retrieval_path, fname, {
             'enc_q': self.enc_q.cpu().state_dict(),
             'enc_m': self.enc_m.cpu().state_dict(),
             'predictor': self.predictor.cpu().state_dict(),
@@ -167,7 +167,7 @@ class Retrieval:
 
     def load_model_encoder(self):
         print('==> loading model encoder ... ')
-        loaded = torch_load(os.path.join(self.args.check_pt_path, 'saved_model_max_recall.pt'))
+        loaded = torch_load(os.path.join(self.args.retrieval_path, 'saved_model_max_recall.pt'))
         self.enc_m = ModelEncoder(self.args).to(self.device)
         self.enc_m.load_state_dict(loaded['enc_m'])
         self.enc_m.eval()
@@ -437,7 +437,7 @@ class Retrieval:
 
     def save_meta_test_model(self):
         torch_save(
-            self.args.check_pt_path, 
+            self.args.retrieval_path, 
             f'{self.query_dataset}_{self.k}_{self.curr_ep}.pt', {
                 'model': self.model,
                 'curr_ep': self.curr_ep,
