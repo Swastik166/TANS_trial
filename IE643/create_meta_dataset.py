@@ -22,7 +22,7 @@ def get_query(queries):
 
     model.eval()
     
-    _ = model(queries)
+    _ = model(queries.to(device)
 
     list_embeddings = [item for sublist in outputs for item in sublist]
 
