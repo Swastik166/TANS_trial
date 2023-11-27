@@ -19,8 +19,9 @@ class ZooDatasets(Dataset):
         self.data_path = data_path
         self.mode = mode
         self.transform = transform
-        self.dataset_list = [
+        '''self.dataset_list = [
                 'e4040fall2019-assignment-2-task-5_0_5',
+                'fruit-recognition_chrisfilo_0_15',
                 'cassava-leaf-disease-classification_0_5',
                 'real-life-industrial-dataset-of-casting-product_ravirajsinh45_0_2',
                 'corales_0_14',
@@ -28,6 +29,11 @@ class ZooDatasets(Dataset):
                 'four-shapes_smeschke_0_4',
                 'lego-brick-images_joosthazelzet_0_16',
                 'intel-image-classification_puneet6060_0_6',
+                '6000-store-items-images-classified-by-color_imoore_0_12',
+        ]'''
+
+        self.dataset_list = [
+                'fruit-recognition_chrisfilo_0_15',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
         ]
         
