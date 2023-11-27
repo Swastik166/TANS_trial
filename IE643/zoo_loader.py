@@ -19,23 +19,23 @@ class ZooDatasets(Dataset):
         self.data_path = data_path
         self.mode = mode
         self.transform = transform
-        '''self.dataset_list = [
-                'e4040fall2019-assignment-2-task-5_0_5',
-                'fruit-recognition_chrisfilo_0_15',
-                'cassava-leaf-disease-classification_0_5',
-                'real-life-industrial-dataset-of-casting-product_ravirajsinh45_0_2',
-                'corales_0_14',
-                'computed-tomography-ct-images_vbookshelf_0_2',
-                'four-shapes_smeschke_0_4',
-                'lego-brick-images_joosthazelzet_0_16',
-                'intel-image-classification_puneet6060_0_6',
-                '6000-store-items-images-classified-by-color_imoore_0_12',
-        ]'''
-
         self.dataset_list = [
                 'corales_0_14',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
+                'fcis-sc-deeplearning-competition_0_10',
+                'lego-brick-images_joosthazelzet_0_16',
+                'oregon-wildlife_virtualdvid_0_20',
+                'perritos_0_10',
+                'khu-deep-learning-competition_0_10',
+                'plant-seedlings-classification_0_12',
+                'skin-cancer9-classesisic_nodoubttome_0_9',
+                'sldc_0_10'
         ]
+
+        '''self.dataset_list = [
+                'corales_0_14',
+                '6000-store-items-images-classified-by-color_imoore_0_12',
+        ]'''
         
         self.curr_dataset = self.dataset_list[0]
         self.load_data()
