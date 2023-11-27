@@ -128,7 +128,7 @@ class ModelZoo:
             clss = self.tr_dataset.get_clss()
             self.save_trainpt(query_dataset, clss, nclass, x_query_test, x_query_train)
                 
-        self.save_zoo(self.zoo)
+        self.save_zoo( zoo = self.zoo)
         
                 
                 
@@ -327,12 +327,12 @@ class ModelZoo:
     
     
 
-    def save_zoo(self, dict):
+    def save_zoo(self, zoo_dict):
         # Save model zoo to model_zoo.pt
-        print(f'\n=====>SAVING {dict} in model_zoo.pt <=====\n')
+        print(f'\n=====>SAVING {zoo_dict} in model_zoo.pt <=====\n')
 
         file = os.path.join(self.model_zoo_path, 'model_zoo.pt')
-        torch.save( dict , file)
+        torch.save( zoo_dict , file)
 
         
         
@@ -369,8 +369,10 @@ if __name__ == '__main__':
     # Determine device
     if args.gpu == 1 and torch.cuda.is_available():
         device = torch.device("cuda")
+        print(f'Using GPU:{device}')
     else:
         device = torch.device("cpu")
+        print(f'Using CPU:{device}')
 
     noise_path = args.noise_path
     learn = args.learn
