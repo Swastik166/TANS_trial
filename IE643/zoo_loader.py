@@ -20,6 +20,7 @@ class ZooDatasets(Dataset):
         self.mode = mode
         self.transform = transform
         self.dataset_list = [
+                'sldc_0_10',
                 'corales_0_14',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
                 'fcis-sc-deeplearning-competition_0_10',
@@ -28,8 +29,8 @@ class ZooDatasets(Dataset):
                 'perritos_0_10',
                 'khu-deep-learning-competition_0_10',
                 'plant-seedlings-classification_0_12',
-                'skin-cancer9-classesisic_nodoubttome_0_9',
-                'sldc_0_10'
+                'skin-cancer9-classesisic_nodoubttome_0_9'
+                
         ]
 
         '''self.dataset_list = [
