@@ -13,9 +13,11 @@ from zoo_loader import *
 
 
 class ModelZoo:
-    def __init__(self, model_zoo_path, m_train_path, device, seed, batch_size, dataset_path):
+    def __init__(self, model_zoo_path, m_train_path, device, seed, batch_size, dataset_path, load_model_zoo_path, load_m_train_path):
         self.seed = seed
         self.models = {}
+        self.load_model_zoo_path = load_model_zoo_path
+        self.load_m_train_path = load_m_train_path
 
         self.batch_size = batch_size
         self.dataset_path = dataset_path
@@ -30,14 +32,14 @@ class ModelZoo:
         random.seed(self.seed)
 
         # Check if model_zoo file exists, load if yes
-        if os.path.isfile(self.model_zoo_path):
+        if os.path.isfile(self.load_model_zoo_path):
             self.load_model_zoo()
         else:
             self.zoo = {'dataset': [], 'topol': [], 'f_emb': [], 'acc': [], 'n_params': []}
 
 
         # Check if m_train file exists, load if yes
-        if os.path.isfile(self.m_train_path):
+        if os.path.isfile(self.load_m_train_path):
             self.load_m_train()
         else:
             self.trainpt_dict = {}
@@ -46,13 +48,13 @@ class ModelZoo:
     def load_model_zoo(self):
         # Load model zoo from model_zoo.pt
         print('\n=====> LOADING model_zoo.pt <=====\n')
-        self.zoo = torch.load(self.model_zoo_path)
+        self.zoo = torch.load(self.load_model_zoo_path)
 
 
     def load_m_train(self):
         # Load training instances from m_train.pt
         print('\n=====> LOADING m_train.pt <=====\n')
-        self.trainpt_dict = torch.load(self.m_train_path)
+        self.trainpt_dict = torch.load(self.load_m_train_path)
         
     
     def init_loaders(self):
@@ -369,17 +371,21 @@ class ModelZoo:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Model Zoo Construction')
-    parser.add_argument('--noise_path', type=str, default='/kaggle/working/noise.pt', help='Path to noise file')
+    parser.add_argument('--noise_path', type=str, default='/kaggle/input/noise-tans/noise.pt', help='Path to noise file')
     parser.add_argument('--learn', type=float, default=1e-2, help='Learning rate')
     parser.add_argument('--batch_size', type=int, default=32, help='Batch_size to be used for training')
     parser.add_argument('--patience', type=int, default=5, help='Patience value')
     parser.add_argument('--epochs', type=int, default=5, help='Number of epochs for training generated networks')
-    parser.add_argument('--dataset_path', type=str, default='/kaggle/input/ie-643-tans-train-sub-dataset', help='Path to datasets file')
-    parser.add_argument('--model_zoo_path', type=str, default='model_zoo.pt', help='Path to model zoo file')
-    parser.add_argument('--m_train_path', type=str, default='meta_train.pt', help='Path to meta train file')
+    parser.add_argument('--dataset_path', type=str, default='/kaggle/input/model-zoo-tans/v14/geon/final_data/MetaTrain', help='Path to datasets file')
+    parser.add_argument('--model_zoo_path', type=str, default='kaggle/working/', help='Path to save model zoo file')
+    parser.add_argument('--m_train_path', type=str, default='kaggle/working/', help='Path to save meta train file')
     parser.add_argument('--n_nets', type=int, default= 10, help='number of networks to be generated per dataset')
     parser.add_argument('--gpu', type=int, default=0, help='Use GPU or not, if 1 then use GPU, else use CPU')
     parser.add_argument('--seed', type=int, default=777, help='Random seed value')
+    parser.add_argument('--load_model_zoo_path', type=str, default='kaggle/input/model_zoo/model_zoo.pt', help='Path for saved model zoo file')
+    parser.add_argument('--load_m_train_path', type=str, default='kaggle/input/meta_train/meta_train.pt', help='Path for saved meta train file')
+
+
     args = parser.parse_args()
 
     if args.gpu >= 0 and torch.cuda.is_available():
@@ -399,8 +405,10 @@ if __name__ == '__main__':
     seed = args.seed
     batch_size = args.batch_size
     dataset_path = args.dataset_path
+    load_model_zoo_path = args.load_model_zoo_path
+    load_m_train_path = args.load_m_train_path
 
-    model_zoo = ModelZoo(model_zoo_path, m_train_path, device, seed, batch_size, dataset_path)
+    model_zoo = ModelZoo(model_zoo_path, m_train_path, device, seed, batch_size, dataset_path, load_model_zoo_path, load_m_train_path)
     model_zoo.create_zoo(noise_path, learn, patience, epochs, n_nets)
 
 
