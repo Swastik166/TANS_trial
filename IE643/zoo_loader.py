@@ -19,7 +19,7 @@ class ZooDatasets(Dataset):
         self.data_path = data_path
         self.mode = mode
         self.transform = transform
-        self.dataset_list = [
+        '''self.dataset_list = [
                 'sldc_0_10',
                 'corales_0_14',
                 '6000-store-items-images-classified-by-color_imoore_0_12',
@@ -31,12 +31,23 @@ class ZooDatasets(Dataset):
                 'plant-seedlings-classification_0_12',
                 'skin-cancer9-classesisic_nodoubttome_0_9'
                 
+        ]'''
+
+        self.dataset_list = [ 
+            'breakhis_ambarish_0_8',
+            'chessman-image-dataset_niteshfre_0_6',
+            'cs4670spring2020pa3_0_16',
+            'garbage-classification_asdasdasasdas_0_6',
+            'kunstmatigeintelligentie20192020_0_5',
+            'land-cover-class_0_10',
+            'lego-brick-sorting-image-recognition_pacogarciam3_0_20',
+            'mushrooms-classification-common-genuss-images_maysee_0_9',
+            'proptit-aif-homework-1_0_8',
+            'synthetic-digits_prasunroy_0_10'
+
         ]
 
-        '''self.dataset_list = [
-                'corales_0_14',
-                '6000-store-items-images-classified-by-color_imoore_0_12',
-        ]'''
+
         
         self.curr_dataset = self.dataset_list[0]
         self.load_data()
