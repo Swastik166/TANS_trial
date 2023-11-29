@@ -63,7 +63,7 @@ def process_dataset(dataset_path, save_path, device):
     y_train = []
     for class_folder in os.listdir(tr_path):
         class_path = os.path.join(tr_path, class_folder)
-        label = class_folder  # Assuming folder names are class labels
+        label = class_folder  
         if label not in label_map:  # If label not mapped yet, assign an integer
             label_map[label] = label_counter
             label_counter += 1
@@ -83,7 +83,7 @@ def process_dataset(dataset_path, save_path, device):
     y_test = []
     for class_folder in os.listdir(te_path):
         class_path = os.path.join(te_path, class_folder)
-        label = class_folder  # Assuming folder names are class labels
+        label = class_folder  
         if label not in label_map:  # If label not mapped yet, assign an integer
             label_map[label] = label_counter
             label_counter += 1
